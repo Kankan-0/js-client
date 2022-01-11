@@ -71,6 +71,7 @@ export default class EthereumConfig extends BaseWebCurrency {
         const tx = {
             to,
             value: "0x" + (new BigNumber(amount)).toString(16),
+            from: ethers.constants.AddressZero,
         };
 
         const estimatedGas = await provider.estimateGas(tx);
@@ -87,7 +88,7 @@ export default class EthereumConfig extends BaseWebCurrency {
     async createTx(amount: BigNumber.Value, to: string, _fee?: string): Promise<{ txId: string; tx: any; }> {
         const amountc = ethBigNumber.from((new BigNumber(amount)).toString())
         const signer = this.w3signer
-        const estimatedGas = await signer.estimateGas({ to, value: amountc.toHexString() })
+        const estimatedGas = await signer.estimateGas({ to, value: amountc.toHexString(), from: ethers.constants.AddressZero })
         const gasPrice = await signer.getGasPrice();
         const txr = await signer.populateTransaction({ to, value: amountc.toHexString(), gasPrice, gasLimit: estimatedGas })
         return { txId: "", tx: txr };

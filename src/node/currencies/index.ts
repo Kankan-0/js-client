@@ -15,6 +15,8 @@ export default function getCurrency(currency: string, wallet: any, providerUrl?:
             return new EthereumConfig({ name: "bnb", ticker: "BNB", minConfirm: 5, providerUrl: providerUrl ?? "https://bsc-dataseed.binance.org", wallet })
         case "solana":
             return new SolanaConfig({ name: "solana", ticker: "SOL", minConfirm: 5, providerUrl: providerUrl ?? "https://api.mainnet-beta.solana.com", wallet })
+        case "optimism":
+            return new EthereumConfig({ name: "optimism", ticker: "ETH", minConfirm: 5, providerUrl: providerUrl ?? "https://mainnet.optimism.io", wallet })
         default:
             throw new Error(`Unknown/Unsupported currency ${currency}`);
     }

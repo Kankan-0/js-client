@@ -72,6 +72,7 @@ export default class EthereumConfig extends BaseNodeCurrency {
         const tx = {
             to,
             value: "0x" + _amount.toString(16),
+            from: ethers.constants.AddressZero,
         };
 
         const estimatedGas = await provider.estimateGas(tx);
@@ -94,7 +95,7 @@ export default class EthereumConfig extends BaseNodeCurrency {
 
         const _amount = "0x" + new BigNumber(amount).toString(16);
 
-        const estimatedGas = await provider.estimateGas({ to, value: _amount });
+        const estimatedGas = await provider.estimateGas({ to, value: _amount, from: ethers.constants.AddressZero });
         const gasPrice = await provider.getGasPrice();
 
         const tx = await wallet.populateTransaction({
